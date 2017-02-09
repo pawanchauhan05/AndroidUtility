@@ -26,59 +26,6 @@ import java.util.concurrent.ExecutionException;
 
 public class Task {
 
-    public static boolean hasInternetAccess() {
-        try {
-            return new InternetCheckTask().execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public static boolean hasAppInForeground(Context context) {
-        try {
-            return new ForegroundCheckTask().execute(context).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public static void downloadMusicFile(final String url, final String fileName, Activity activity) {
-        RunTimePermission permission = new RunTimePermission(activity, new RuntimePermissionInterface() {
-            @Override
-            public void doTaskAfterPermission() {
-                new DownloadFileTask().execute(url, fileName + ".mp3", Environment.DIRECTORY_MUSIC);
-            }
-        });
-        permission.runtimePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-    }
-
-    public static void downloadVideoFile(final String url, final String fileName, Activity activity) {
-        RunTimePermission permission = new RunTimePermission(activity, new RuntimePermissionInterface() {
-            @Override
-            public void doTaskAfterPermission() {
-                new DownloadFileTask().execute(url, fileName + ".mp4", Environment.DIRECTORY_MOVIES);
-            }
-        });
-        permission.runtimePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-    }
-
-    public static void downloadImageFile(final String url, final String fileName, Activity activity) {
-        RunTimePermission permission = new RunTimePermission(activity, new RuntimePermissionInterface() {
-            @Override
-            public void doTaskAfterPermission() {
-                new DownloadFileTask().execute(url, fileName + ".jpg", Environment.DIRECTORY_PICTURES);
-            }
-        });
-        permission.runtimePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-    }
-
-
     public static class InternetCheckTask extends AsyncTask<Context, Void, Boolean> {
 
         @Override

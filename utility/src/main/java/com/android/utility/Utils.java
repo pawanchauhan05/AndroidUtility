@@ -1,10 +1,13 @@
 package com.android.utility;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
@@ -12,6 +15,7 @@ import com.google.gson.Gson;
 
 
 import java.io.File;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by pawan on 8/2/17.
@@ -144,6 +148,58 @@ public class Utils {
                 new File(dir, children[i]).delete();
             }
         }
+    }
+
+    public static void downloadMusicFile(final String url, final String fileName, Activity activity) {
+        RunTimePermission permission = new RunTimePermission(activity, new RuntimePermissionInterface() {
+            @Override
+            public void doTaskAfterPermission() {
+                new Task.DownloadFileTask().execute(url, fileName + ".mp3", Environment.DIRECTORY_MUSIC);
+            }
+        });
+        permission.runtimePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+    public static void downloadVideoFile(final String url, final String fileName, Activity activity) {
+        RunTimePermission permission = new RunTimePermission(activity, new RuntimePermissionInterface() {
+            @Override
+            public void doTaskAfterPermission() {
+                new Task.DownloadFileTask().execute(url, fileName + ".mp4", Environment.DIRECTORY_MOVIES);
+            }
+        });
+        permission.runtimePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+    public static void downloadImageFile(final String url, final String fileName, Activity activity) {
+        RunTimePermission permission = new RunTimePermission(activity, new RuntimePermissionInterface() {
+            @Override
+            public void doTaskAfterPermission() {
+                new Task.DownloadFileTask().execute(url, fileName + ".jpg", Environment.DIRECTORY_PICTURES);
+            }
+        });
+        permission.runtimePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+    public static boolean hasInternetAccess() {
+        try {
+            return new Task.InternetCheckTask().execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean hasAppInForeground(Context context) {
+        try {
+            return new Task.ForegroundCheckTask().execute(context).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 

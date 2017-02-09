@@ -6,6 +6,8 @@
 		* save and get int value
 		* save and get String value
 		* save and get custom object
+		* clear perticular key data
+		* clear all shared preference
 	* Runtime Permission for marshmallow and above sdk
 	* Download audio, video, image file
 	* Show custom or default progress dialog
@@ -54,6 +56,12 @@ dependencies {
 	* Get custom object value
 		Utils.readPreferenceData(getContext(), "CUSTOM_KEY", customObject, CustomObject.class);
 
+#### Clear perticular key data
+	Utils.removePreferenceData(getActivity(), "REMOVE_KEY");
+
+#### clear all shared preference
+	Utils.clearPreferences(getActivity());
+
 
 >**_"in Utils.readPreferenceData() method third perameter in default value"_**
 
@@ -69,5 +77,67 @@ permission.runtimePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
 ```
 
 >**_"To prevent application to crash you also have to add permission in application manifest file"_**
+
+### Download audio, video, image file
+	* Download Audio file
+		Utils.downloadMusicFile("music_url", "music_file_name", getActivity());
+
+	* Download Video File
+		Utils.downloadVideoFile("video_url", "video_file_name", getActivity());
+
+	* Download Image File
+		Utils.downloadImageFile("image_url", "image_file_name", getActivity());
+
+### Show or Hide custom or default progress dialog
+	* Show Custom Progress Dialog
+		ProgressDialog progressDialog = new ProgressDialog(getActivity());
+		Utils.showProgressBar(progressDialog);
+
+	* Show Default Progress Dialog
+		ProgressDialog progressDialog = new ProgressDialog(getActivity());
+		Utils.showProgressBar("progress_dialog_title", "progress_dialog_message", progressDialog);
+
+	* Hide Progress Dialog
+		Utils.hideProgressBar(progressDialog);
+
+>**_"use same progress dialog instance to hideProgressBar() that used for showProgressBar()"_**
+
+### Check app foreground state
+```java
+Utils.hasAppInForeground(getActivity());
+```
+hasAppInForeground() method returns boolean value.
+>**_"true = app in foreground AND false = app in background"_**
+
+### Check internet connectivity
+```java
+Utils.hasInternetAccess();
+```
+hasInternetAccess() method returns boolean value.
+>**_"true = having internet access AND false = do not have internet access"_**
+
+### Read and write custom object from file
+	* Write custom object to file
+		FileDBUtils<CustomObject> fileDBUtils = new FileDBUtils<>(getActivity(), "file_name", CustomObject.class, "/db/custom");
+		fileDBUtils.saveObject(customObjectInstance);
+
+	* Read custom object from file
+		FileDBUtils<CustomObject> fileDBUtils = new FileDBUtils<>(getActivity(), "file_name", CustomObject.class, "/db/custom");
+		fileDBUtils.readObject();
+
+### Create directory (from path) and delete directory with files
+	* Create directory form path
+		Utils.createDirectory(getActivity(), "top/main/sub");
+
+	* Delete directory including files
+		Utils.deleteDirectory(getActivity(), "top/main/sub");
+
+### Show short or long toast
+	* Show Short Toast
+		Utils.generateShortToast(getActivity(), "toast_message");
+
+	* Show Long Toast
+		Utils.generateLongToast(getActivity(), "toast_message");
+
 
 

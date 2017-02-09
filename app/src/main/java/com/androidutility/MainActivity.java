@@ -1,16 +1,19 @@
 package com.androidutility;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.android.utility.FileDBUtils;
 import com.android.utility.RunTimePermission;
 import com.android.utility.RuntimePermissionInterface;
 import com.android.utility.Task;
 import com.android.utility.Utils;
+import com.androidutility.model.CustomObject;
 
 public class MainActivity extends AppCompatActivity {
     private RunTimePermission permission;
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void downloadSong(View view) {
-        Task.downloadMusicFile(url, musicFileName, this);
+        Utils.downloadMusicFile(url, musicFileName, this);
     }
 
     @Override
