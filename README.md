@@ -1,5 +1,7 @@
 # AndroidUtility
 
+Android Utility is combination of normal utility functions like described below in feature section. I decided to implement completely almost all features in order to make Android Utility easy to use for everyone and extensible as possible.
+
 ## Features
 	* Utility function for shared preference
 		* save and get boolean value
