@@ -140,7 +140,8 @@ hasInternetAccess() method returns boolean value.
 		Utils.generateLongToast(getActivity(), "toast_message");
 
 ## Getting Help
-	To report a specific problem or feature request, [open a new issue on Github](https://github.com/pawanchauhan05/AndroidUtility/issues/new).
+
+To report a specific problem or feature request, [open a new issue on Github](https://github.com/pawanchauhan05/AndroidUtility/issues/new).
 
 
 
