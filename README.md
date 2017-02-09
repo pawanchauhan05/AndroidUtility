@@ -29,28 +29,45 @@ dependencies {
 #### Save and get boolean value from shared perference
 	* Save boolean type value
 		Utils.savePreferenceData(getContext(), "BOOLEAN_KEY", true);
+
 	* Get boolean type value
 		Utils.readPreferenceData(getContext(), "BOOLEAN_KEY", false);
 
 #### Save and get int value from shared perference
 	* Save int type value
 		Utils.savePreferenceData(getContext(), "INT_KEY", 5);
+
 	* Get int type value
 		Utils.readPreferenceData(getContext(), "INT_KEY", 0);
 
 #### Save and get String value from shared perference
 	* Save String type value
 		Utils.savePreferenceData(getContext(), "STRING_KEY", "STRING_VALUE");
+
 	* Get String type value
 		Utils.readPreferenceData(getContext(), "STRING_KEY", "");
 
 #### Save and get custom object value from shared perference
 	* Save custom object value
 		Utils.savePreferenceData(getContext(), "CUSTOM_KEY", customObject);
+
 	* Get custom object value
 		Utils.readPreferenceData(getContext(), "CUSTOM_KEY", customObject, CustomObject.class);
 
 
->"in Utils.readPreferenceData() method third perameter in default value"
+>**_"in Utils.readPreferenceData() method third perameter in default value"_**
+
+### Runtime Permission for marshmallow and above SDK
+```java
+RunTimePermission permission = new RunTimePermission(this, new RuntimePermissionInterface() {
+            @Override
+            public void doTaskAfterPermission() {
+                Log.e("Task","Add you task which want to complete after getting permission");
+            }
+        });
+permission.runtimePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+```
+
+>**_"To prevent application to crash you also have to add permission in application manifest file"_**
 
 
