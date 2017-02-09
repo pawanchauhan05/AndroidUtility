@@ -15,3 +15,10 @@
 	* Create directory (from path) and delete directory with files
 	* Show short or long toast
 
+## Usage
+### Step 1:
+#### Add gradle dependecy
+
+dependencies {
+  compile 'com.android.utility:Android-Utility:{latest_release}'
+}
