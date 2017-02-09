@@ -9,9 +9,12 @@ import android.view.View;
 
 import com.android.utility.RunTimePermission;
 import com.android.utility.RuntimePermissionInterface;
+import com.android.utility.Task;
 
 public class MainActivity extends AppCompatActivity {
     private RunTimePermission permission;
+    private String url = "http://www.maninblack.org/demos/WhereDoAllTheJunkiesComeFrom.mp3";
+    private String musicFileName = "music";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +31,11 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("C","F");
             }
         });
-
         permission.runtimePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+    public void downloadSong(View view) {
+        Task.downloadMusicFile(url, musicFileName, this);
     }
 
     @Override

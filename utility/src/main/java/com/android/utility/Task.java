@@ -1,5 +1,7 @@
 package com.android.utility;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -46,16 +48,34 @@ public class Task {
         return false;
     }
 
-    public static void downloadMusicFile(String url, String fileName) {
-        new DownloadFileTask().execute(url, fileName + ".mp3", Environment.DIRECTORY_MUSIC);
+    public static void downloadMusicFile(final String url, final String fileName, Activity activity) {
+        RunTimePermission permission = new RunTimePermission(activity, new RuntimePermissionInterface() {
+            @Override
+            public void doTaskAfterPermission() {
+                new DownloadFileTask().execute(url, fileName + ".mp3", Environment.DIRECTORY_MUSIC);
+            }
+        });
+        permission.runtimePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
-    public static void downloadVideoFile(String url, String fileName) {
-        new DownloadFileTask().execute(url, fileName + ".mp4", Environment.DIRECTORY_MOVIES);
+    public static void downloadVideoFile(final String url, final String fileName, Activity activity) {
+        RunTimePermission permission = new RunTimePermission(activity, new RuntimePermissionInterface() {
+            @Override
+            public void doTaskAfterPermission() {
+                new DownloadFileTask().execute(url, fileName + ".mp4", Environment.DIRECTORY_MOVIES);
+            }
+        });
+        permission.runtimePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
-    public static void downloadImageFile(String url, String fileName) {
-        new DownloadFileTask().execute(url, fileName + ".jpg", Environment.DIRECTORY_PICTURES);
+    public static void downloadImageFile(final String url, final String fileName, Activity activity) {
+        RunTimePermission permission = new RunTimePermission(activity, new RuntimePermissionInterface() {
+            @Override
+            public void doTaskAfterPermission() {
+                new DownloadFileTask().execute(url, fileName + ".jpg", Environment.DIRECTORY_PICTURES);
+            }
+        });
+        permission.runtimePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
 
@@ -74,8 +94,7 @@ public class Task {
                 urlc.setConnectTimeout(1500);
                 urlc.connect();
                 Log.e("TAG", "network available!");
-                return (urlc.getResponseCode() == 204 &&
-                        urlc.getContentLength() == 0);
+                return (urlc.getResponseCode() == 204 && urlc.getContentLength() == 0);
             } catch (IOException e) {
                 Log.e("TAG", "Error checking internet connection", e);
             }
@@ -141,6 +160,7 @@ public class Task {
 
         @Override
         protected void onPostExecute(String s) {
+            Log.e("File", "file downloaded");
         }
     }
 
