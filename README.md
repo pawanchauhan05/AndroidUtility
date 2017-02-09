@@ -2,10 +2,10 @@
 
 ## Features
 	* Utility function for shared preference
-		* save boolean value
-		* save int value
-		* save String value
-		* save custom object
+		* save and get boolean value
+		* save and get int value
+		* save and get String value
+		* save and get custom object
 	* Runtime Permission for marshmallow and above sdk
 	* Download audio, video, image file
 	* Show custom or default progress dialog
@@ -16,9 +16,25 @@
 	* Show short or long toast
 
 ## Usage
-### Step 1:
+### Steps
 #### Add gradle dependecy
 
+```
 dependencies {
   compile 'com.android.utility:Android-Utility:{latest_release}'
 }
+```
+### How to use ?
+#### Save and get boolean value from shared perference
+	* Save boolean value
+		```
+		Utils.savePreferenceData(getContext(), "BOOLEAN_KEY", true);
+		```
+	* Get boolean value
+		```
+		Utils.readPreferenceData(getContext(), "BOOLEAN_KEY", false);
+
+		in readPreferenceData() method third perameter in default value 
+		```
+
+
