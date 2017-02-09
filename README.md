@@ -24,17 +24,33 @@ dependencies {
   compile 'com.android.utility:Android-Utility:{latest_release}'
 }
 ```
-### How to use ?
+## How to use ?
+### Shared Preference
 #### Save and get boolean value from shared perference
-	* Save boolean value
-		```
+	* Save boolean type value
 		Utils.savePreferenceData(getContext(), "BOOLEAN_KEY", true);
-		```
-	* Get boolean value
-		```
+	* Get boolean type value
 		Utils.readPreferenceData(getContext(), "BOOLEAN_KEY", false);
 
-		in readPreferenceData() method third perameter in default value 
-		```
+#### Save and get int value from shared perference
+	* Save int type value
+		Utils.savePreferenceData(getContext(), "INT_KEY", 5);
+	* Get int type value
+		Utils.readPreferenceData(getContext(), "INT_KEY", 0);
+
+#### Save and get String value from shared perference
+	* Save String type value
+		Utils.savePreferenceData(getContext(), "STRING_KEY", "STRING_VALUE");
+	* Get String type value
+		Utils.readPreferenceData(getContext(), "STRING_KEY", "");
+
+#### Save and get custom object value from shared perference
+	* Save custom object value
+		Utils.savePreferenceData(getContext(), "CUSTOM_KEY", customObject);
+	* Get custom object value
+		Utils.readPreferenceData(getContext(), "CUSTOM_KEY", customObject, CustomObject.class);
+
+
+>"in Utils.readPreferenceData() method third perameter in default value"
 
 

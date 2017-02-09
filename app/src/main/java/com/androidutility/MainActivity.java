@@ -10,6 +10,7 @@ import android.view.View;
 import com.android.utility.RunTimePermission;
 import com.android.utility.RuntimePermissionInterface;
 import com.android.utility.Task;
+import com.android.utility.Utils;
 
 public class MainActivity extends AppCompatActivity {
     private RunTimePermission permission;
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Utils.readPreferenceData();
 
     }
 
