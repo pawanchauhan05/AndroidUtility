@@ -63,7 +63,7 @@ dependencies {
 	Utils.clearPreferences(getActivity());
 
 
->**_"in Utils.readPreferenceData() method third perameter in default value"_**
+>**_"in Utils.readPreferenceData() method third perameter is default value"_**
 
 ### Runtime Permission for marshmallow and above SDK
 ```java
@@ -138,6 +138,9 @@ hasInternetAccess() method returns boolean value.
 
 	* Show Long Toast
 		Utils.generateLongToast(getActivity(), "toast_message");
+
+## Getting Help
+	To report a specific problem or feature request, [open a new issue on Github](https://github.com/pawanchauhan05/AndroidUtility/issues/new).
 
 
 
