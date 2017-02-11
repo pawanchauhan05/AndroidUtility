@@ -6,15 +6,24 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentManager;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 
 import java.io.File;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -202,6 +211,20 @@ public class Utils {
         return false;
     }
 
+    public static void showAlertDialog(Activity activity, String title, String message, AlertDialogInterface alertDialogInterface) {
+        new AlertDialog().showAlertDialog(activity, title, message, alertDialogInterface);
+    }
 
+    public static void showTimePicker(FragmentManager fragmentManager, TimeInterface timeInterface) {
+        AlertDialog.TimePickerFragment fragment = new AlertDialog.TimePickerFragment();
+        fragment.setTimeInterface(timeInterface);
+        fragment.show(fragmentManager, "Time Picker");
+    }
+
+    public static void showDatePicker(FragmentManager fragmentManager, DateInterface dateInterface) {
+        AlertDialog.DatePickerFragment fragment = new AlertDialog.DatePickerFragment();
+        fragment.setDateInterface(dateInterface);
+        fragment.show(fragmentManager, "Date Picker");
+    }
 
 }
