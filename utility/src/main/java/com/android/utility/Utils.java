@@ -120,7 +120,7 @@ public class Utils {
     public static void showProgressBar(ProgressDialog progressDialog) {
         progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         progressDialog.show();
-        //progressDialog.setContentView(R.layout.progress_dialog_layout);
+        progressDialog.setContentView(R.layout.progress_dialog_layout);
         progressDialog.setCancelable(true);
     }
 
