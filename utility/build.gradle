@@ -1,19 +1,19 @@
 apply plugin: 'com.android.library'
 
 ext {
-    bintrayRepo = 'Android-Utility'
-    bintrayName = 'Android-Utility'
+    bintrayRepo = 'Lib'
+    bintrayName = 'AndroidUtility'
 
-    publishedGroupId = 'com.android.utility'
-    libraryName = 'Android-Utility'
-    artifact = 'Android-Utility'
+    publishedGroupId = 'com.github.pawanchauhan05'
+    libraryName = 'utility'
+    artifact = 'utility'
 
     libraryDescription = 'some utility function for android'
 
     siteUrl = 'https://github.com/pawanchauhan05/AndroidUtility'
     gitUrl = 'https://github.com/pawanchauhan05/AndroidUtility.git'
 
-    libraryVersion = '0.0.1'
+    libraryVersion = '0.0.2'
 
     developerId = 'pawanchauhan05'
     developerName = 'Pawan Singh Chauhan'
