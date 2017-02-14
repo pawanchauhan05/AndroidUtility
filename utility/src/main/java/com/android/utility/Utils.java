@@ -11,8 +11,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -211,8 +214,12 @@ public class Utils {
         return false;
     }
 
-    public static void showAlertDialog(Activity activity, String title, String message, AlertDialogInterface alertDialogInterface) {
-        new AlertDialog().showAlertDialog(activity, title, message, alertDialogInterface);
+    public static void showSingleButtonAlertDialog(Activity activity, String positiveButtonText, String negativeButtonText, String title, String message, AlertDialogInterface alertDialogInterface) {
+        new AlertDialog().showSingleButtonAlertDialog(activity, positiveButtonText, negativeButtonText, title, message, alertDialogInterface);
+    }
+
+    public static void showMultiButtonAlertDialog(Activity activity, String buttonText, String title, String message, AlertDialogSingleInterface singleInterface) {
+        new AlertDialog().showSingleButtonAlertDialog(activity, buttonText, title, message, singleInterface);
     }
 
     public static void showTimePicker(FragmentManager fragmentManager, TimeInterface timeInterface) {
@@ -225,6 +232,23 @@ public class Utils {
         AlertDialog.DatePickerFragment fragment = new AlertDialog.DatePickerFragment();
         fragment.setDateInterface(dateInterface);
         fragment.show(fragmentManager, "Date Picker");
+    }
+
+    public static void showShortSnackBar(Activity activity, String message) {
+        Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();
+    }
+
+    public static void showLongSnackBar(Activity activity, String message) {
+        Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show();
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        try {
+            InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+        } catch (Exception e) {
+            Log.e("Exception", e.getMessage());
+        }
     }
 
 }

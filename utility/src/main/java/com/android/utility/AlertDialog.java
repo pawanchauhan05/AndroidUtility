@@ -19,25 +19,39 @@ import java.util.Date;
  */
 
 public class AlertDialog {
-    public static Date date;
 
-    public void showAlertDialog(Activity activity, String title, String message, final AlertDialogInterface alertDialogInterface) {
+    public void showSingleButtonAlertDialog(Activity activity, String positiveButtonText, String negativeButtonText, String title, String message, final AlertDialogInterface alertDialogInterface) {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(activity);
         builder.setTitle(title)
                 .setMessage(message)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        alertDialogInterface.okButtonPressed();
+                        alertDialogInterface.positiveButtonPressed();
                         dialogInterface.cancel();
                     }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNegativeButton(negativeButtonText, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                alertDialogInterface.cancelButtonPressed();
+                alertDialogInterface.negativeButtonPressed();
                 dialogInterface.cancel();
             }
         });
+        android.app.AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    public void showSingleButtonAlertDialog(Activity activity, String buttonText, String title, String message, final AlertDialogSingleInterface dialogSingleInterface) {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(activity);
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(buttonText, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogSingleInterface.doTaskOnClick();
+                        dialogInterface.cancel();
+                    }
+                });
         android.app.AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
