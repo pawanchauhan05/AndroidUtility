@@ -4,10 +4,12 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -249,6 +251,10 @@ public class Utils {
         } catch (Exception e) {
             Log.e("Exception", e.getMessage());
         }
+    }
+
+    public static void selectImage(Activity activity, String title) {
+        new AlertDialog().selectPicture(activity, title);
     }
 
 }
