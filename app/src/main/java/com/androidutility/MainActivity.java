@@ -3,6 +3,7 @@ package com.androidutility;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -54,17 +55,12 @@ public class MainActivity extends AppCompatActivity implements RuntimePermission
 
     }
 
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        try {
-            if(requestCode == 2)
-                AlertDialog.imageHelperInterface.selectedFromCamera();
-            else if(requestCode == 1)
-                AlertDialog.imageHelperInterface.selectedFromGallery(data);
-        } catch(Exception e) {
-            Log.e("Exp", e.getMessage());
-        }
+        AlertDialog.imageHelperInterface.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -75,5 +71,10 @@ public class MainActivity extends AppCompatActivity implements RuntimePermission
     @Override
     public RunTimePermission getRuntimePermission() {
         return permission;
+    }
+
+    @Override
+    public void setBitmap(Bitmap bitmap) {
+
     }
 }

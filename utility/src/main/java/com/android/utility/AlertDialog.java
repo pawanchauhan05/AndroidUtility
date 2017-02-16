@@ -7,6 +7,8 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -14,6 +16,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
@@ -32,8 +36,13 @@ import java.util.Date;
  */
 
 public class AlertDialog {
-    public static String photoFileName = "photo.jpg";
-    public static Activity activity;
+    public static final int CAMERA_REQUEST = 0;
+    public static final int GALLERY_REQUEST = 1;
+    public static final int CAMERA_CROP_REQUEST = 2;
+
+    private static String photoFileName = "photo.jpg";
+    private static Activity activity;
+    private static Fragment fragment = new Fragment();
 
     public void showSingleButtonAlertDialog(Activity activity, String positiveButtonText, String negativeButtonText, String title, String message, final AlertDialogInterface alertDialogInterface) {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(activity);
@@ -71,10 +80,28 @@ public class AlertDialog {
         alertDialog.show();
     }
 
+    private static Bitmap getBitmapFromData(Intent data) {
+        Bitmap photo = null;
+        Uri photoUri = data.getData();
+        if (photoUri != null) {
+            photo = BitmapFactory.decodeFile(photoUri.getPath());
+        }
+        if (photo == null) {
+            Bundle extra = data.getExtras();
+            if (extra != null) {
+                photo = (Bitmap) extra.get("data");
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                photo.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            }
+        }
+        return photo;
+    }
     /** override onRequestPermissionsResult in activity or fragment(cross check override in both) */
 
-    public void selectPicture(final Activity activity, String title) {
+    public void selectPicture(final Activity activity, final Fragment fragment, String title) {
         this.activity = activity;
+        if(fragment != null)
+            this.fragment = fragment;
         final Dialog dialog = new Dialog(activity);
         //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -95,17 +122,28 @@ public class AlertDialog {
                     }
 
                     public void initRuntimePermission(Activity act) {
-                        if(act instanceof RuntimePermissionInitializerInterface) {
+                        if(act instanceof RuntimePermissionInitializerInterface || fragment instanceof RuntimePermissionInitializerInterface) {
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            intent.putExtra(MediaStore.EXTRA_OUTPUT, getPhotoFileUri(photoFileName, activity));
+                            photoFileName = "file" + System.currentTimeMillis() + ".png";
+                            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), photoFileName);
+                            if(!file.exists()){
+                                file.mkdirs();
+                            }
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+                            intent.putExtra("return-data", true);
                             if (intent.resolveActivity(activity.getPackageManager()) != null) {
-                                activity.startActivityForResult(intent, 2); // solution for fragment/activity
+                                if(fragment instanceof RuntimePermissionInitializerInterface)
+                                    fragment.startActivityForResult(intent, CAMERA_CROP_REQUEST);
+                                else if(act instanceof RuntimePermissionInitializerInterface)
+                                    act.startActivityForResult(intent, CAMERA_CROP_REQUEST);
                             }
                         }
                     }
                 });
                 if(activity instanceof RuntimePermissionInitializerInterface)
                     ((RuntimePermissionInitializerInterface) activity).setRuntimePermission(permission);
+                else if(fragment instanceof RuntimePermissionInitializerInterface)
+                    ((RuntimePermissionInitializerInterface) fragment).setRuntimePermission(permission);
                 permission.runtimePermission(RuntimePermissions.CAMERA);
 
             }
@@ -123,11 +161,13 @@ public class AlertDialog {
                     }
 
                     public void initRuntimePermission(Activity act) {
-                        if(act instanceof RuntimePermissionInitializerInterface) {
+                        if(act instanceof RuntimePermissionInitializerInterface || fragment instanceof RuntimePermissionInitializerInterface) {
                             Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                            activity.startActivityForResult(galleryIntent, 1);
                             if (galleryIntent.resolveActivity(activity.getPackageManager()) != null) {
-                                activity.startActivityForResult(galleryIntent, 1); // solution for fragment/activity
+                                if(fragment instanceof RuntimePermissionInitializerInterface)
+                                    fragment.startActivityForResult(galleryIntent, GALLERY_REQUEST);
+                                else if(activity instanceof RuntimePermissionInitializerInterface)
+                                    activity.startActivityForResult(galleryIntent, GALLERY_REQUEST);
                             }
                         }
                     }
@@ -135,33 +175,11 @@ public class AlertDialog {
 
                 if(activity instanceof RuntimePermissionInitializerInterface)
                     ((RuntimePermissionInitializerInterface) activity).setRuntimePermission(permission);
+                else if(fragment instanceof RuntimePermissionInitializerInterface)
+                    ((RuntimePermissionInitializerInterface) fragment).setRuntimePermission(permission);
                 permission.runtimePermission(RuntimePermissions.WRITE_EXTERNAL_STORAGE);
             }
         });
-    }
-
-    private static boolean isExternalStorageAvailable() {
-        String state = Environment.getExternalStorageState();
-        return state.equals(Environment.MEDIA_MOUNTED);
-    }
-
-    public static Uri getPhotoFileUri(String fileName, Activity activity) {
-        // Only continue if the SD Card is mounted
-        if (isExternalStorageAvailable()) {
-            // Get safe storage directory for photos
-            // Use `getExternalFilesDir` on Context to access package-specific directories.
-            // This way, we don't need to request external read/write runtime permissions.
-            File mediaStorageDir = new File(activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "PROFILE_FRAGMENT");
-
-            // Create the storage directory if it does not exist
-            if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
-                //Log.d("PROFILE_FRAGMENT", "failed to create directory");
-            }
-
-            // Return the file target for the photo based on filename
-            return Uri.fromFile(new File(mediaStorageDir.getPath() + File.separator + fileName));
-        }
-        return null;
     }
 
 
@@ -240,24 +258,26 @@ public class AlertDialog {
     }
 
     public static ImageHelperInterface imageHelperInterface = new ImageHelperInterface() {
-        @Override
-        public void selectedFromCamera() {
-            Uri selectedImage = getPhotoFileUri(photoFileName, activity);
-            File file = new File(selectedImage.getPath());
-            Log.e("Camera", "call");
-        }
 
         @Override
-        public void selectedFromGallery(Intent intent) {
-            if(intent != null) {
-                Uri selectedImage = intent.getData();
-                File file = new File(getPath(selectedImage, activity));
-                Log.e("Gallery", "call");
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            try {
+                if(requestCode == CAMERA_CROP_REQUEST)
+                    selectedFromCamera();
+                else if(requestCode == GALLERY_REQUEST)
+                    selectedFromGallery(data);
+                else if(requestCode == CAMERA_REQUEST)
+                    if(activity instanceof RuntimePermissionInitializerInterface)
+                        ((RuntimePermissionInitializerInterface)activity).setBitmap(getBitmapFromData(data));
+                    else if(activity instanceof RuntimePermissionInitializerInterface)
+                        ((RuntimePermissionInitializerInterface)fragment).setBitmap(getBitmapFromData(data));
+            } catch(Exception e) {
+                Log.e("Exp", e.getMessage());
             }
         }
     };
 
-    public static String getPath(Uri uri, Activity activity) {
+    private static String getPath(Uri uri, Activity activity) {
         String[] filePathColumn = {MediaStore.Images.Media.DATA};
         Cursor cursor = activity.getContentResolver().query(uri, filePathColumn, null, null, null);
         cursor.moveToFirst();
@@ -274,6 +294,22 @@ public class AlertDialog {
         intent.putExtra("outputY", 320);
         intent.putExtra("return-data", true);
         return intent;
+    }
+
+    private static void selectedFromCamera() {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        Uri uri = Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), photoFileName));
+        intent.setDataAndType(uri, "image/*");
+        activity.startActivityForResult(getCropIntent(intent), CAMERA_REQUEST);
+    }
+
+    private static void selectedFromGallery(Intent data) {
+        if(data != null) {
+            Intent intent = new Intent("com.android.camera.action.CROP");
+            Uri selectedImage = data.getData();
+            intent.setDataAndType(Uri.fromFile(new File(getPath(selectedImage, activity))), "image/*");
+            activity.startActivityForResult(getCropIntent(intent), CAMERA_REQUEST);
+        }
     }
 
 }

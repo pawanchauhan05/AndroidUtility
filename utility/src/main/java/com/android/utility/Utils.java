@@ -254,7 +254,7 @@ public class Utils {
     }
 
     public static void selectImage(Activity activity, String title) {
-        new AlertDialog().selectPicture(activity, title);
+        new AlertDialog().selectPicture(activity, null, title);
     }
 
 }
