@@ -18,9 +18,10 @@ import com.android.utility.RuntimePermissionInitializerInterface;
 import com.android.utility.RuntimePermissionInterface;
 import com.android.utility.Task;
 import com.android.utility.Utils;
+import com.androidutility.fragment.TestFragment;
 import com.androidutility.model.CustomObject;
 
-public class MainActivity extends AppCompatActivity implements RuntimePermissionInitializerInterface {
+public class MainActivity extends AppCompatActivity {
     public RunTimePermission permission;
     private String url = "http://www.maninblack.org/demos/WhereDoAllTheJunkiesComeFrom.mp3";
     private String musicFileName = "music";
@@ -29,6 +30,10 @@ public class MainActivity extends AppCompatActivity implements RuntimePermission
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frameLayout, new TestFragment())
+                .commit();
     }
 
     public void checkPermission(View view) {
@@ -42,39 +47,7 @@ public class MainActivity extends AppCompatActivity implements RuntimePermission
     }
 
     public void downloadSong(View view) {
-        //Utils.downloadMusicFile(url, musicFileName, this);
-        Utils.selectImage(this, "Profile Picture");
+        Utils.downloadMusicFile(url, musicFileName, this);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        //permission.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(getRuntimePermission() != null)
-            getRuntimePermission().onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-    }
-
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        AlertDialog.imageHelperInterface.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void setRuntimePermission(RunTimePermission runTimePermission) {
-        permission = runTimePermission;
-    }
-
-    @Override
-    public RunTimePermission getRuntimePermission() {
-        return permission;
-    }
-
-    @Override
-    public void setBitmap(Bitmap bitmap) {
-
-    }
 }

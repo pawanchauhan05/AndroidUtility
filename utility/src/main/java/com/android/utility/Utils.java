@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
@@ -253,8 +254,8 @@ public class Utils {
         }
     }
 
-    public static void selectImage(Activity activity, String title) {
-        new AlertDialog().selectPicture(activity, null, title);
+    public static void selectImage(Activity activity, Fragment fragment, String title) {
+        new AlertDialog().selectPicture(activity, fragment, title);
     }
 
 }
