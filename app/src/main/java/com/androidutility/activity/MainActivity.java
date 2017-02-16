@@ -1,4 +1,4 @@
-package com.androidutility;
+package com.androidutility.activity;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -18,6 +18,7 @@ import com.android.utility.RuntimePermissionInitializerInterface;
 import com.android.utility.RuntimePermissionInterface;
 import com.android.utility.Task;
 import com.android.utility.Utils;
+import com.androidutility.R;
 import com.androidutility.fragment.TestFragment;
 import com.androidutility.model.CustomObject;
 

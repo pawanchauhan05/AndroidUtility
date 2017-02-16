@@ -44,7 +44,7 @@ public class AlertDialog {
     private static Activity activity;
     private static Fragment fragment = new Fragment();
 
-    public void showSingleButtonAlertDialog(Activity activity, String positiveButtonText, String negativeButtonText, String title, String message, final AlertDialogInterface alertDialogInterface) {
+    public void showMultiButtonAlertDialog(Activity activity, String positiveButtonText, String negativeButtonText, String title, String message, final AlertDialogInterface alertDialogInterface) {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(activity);
         builder.setTitle(title)
                 .setMessage(message)
