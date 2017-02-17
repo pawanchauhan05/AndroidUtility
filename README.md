@@ -158,15 +158,15 @@ hasInternetAccess() method returns boolean value.
 		Utils.showLongSnackBar(getActivity(), "Snack bar message");
 
 ### Alert Dialog
-	* Show Single Button Alert Dialog
-		```java
-		Utils.showSingleButtonAlertDialog(this, "button_text", "dialog_title", "dialog_message", new AlertDialogSingleInterface() {
-		    @Override
-		    public void doTaskOnClick() {
-		        // TODO add code which want to execute on button click
-		    }
-		});
-		```
+* Show Single Button Alert Dialog
+```java
+Utils.showSingleButtonAlertDialog(this, "button_text","dialog_title","dialog_message", new AlertDialogSingleInterface() {
+    @Override
+    public void doTaskOnClick() {
+	// TODO add code which want to execute on button click
+    }
+});
+```
 
 ## Getting Help
 
