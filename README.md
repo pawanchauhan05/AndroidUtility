@@ -17,7 +17,16 @@ Android Utility is combination of normal utility functions like described below 
 	* Check internet connectivity
 	* Read and write custom object from file
 	* Create directory (from path) and delete directory with files
-	* Show short or long toast
+	* Show short or long length toast
+	* Show short or long length snackbar
+	* Alert Dialog
+		* show single button alert dialog
+		* show multi button alert dialog
+		* show date picker dialog
+		* show time picker dialog
+	* Hide keyboard panel
+	* choose image from camera or gallery
+
 
 ## Usage
 ### Steps
@@ -134,12 +143,30 @@ hasInternetAccess() method returns boolean value.
 	* Delete directory including files
 		Utils.deleteDirectory(getActivity(), "top/main/sub");
 
-### Show short or long toast
+### Show short or long length toast
 	* Show Short Toast
 		Utils.generateShortToast(getActivity(), "toast_message");
 
 	* Show Long Toast
 		Utils.generateLongToast(getActivity(), "toast_message");
+
+### Show short or long length snack bar
+	* Show Short length Snack bar
+		Utils.showShortSnackBar(getActivity(), "Snack bar message");
+
+	* Show Long length Snack bar
+		Utils.showLongSnackBar(getActivity(), "Snack bar message");
+
+### Alert Dialog
+	* Show Single Button Alert Dialog
+		```java
+		Utils.showSingleButtonAlertDialog(this, "button_text", "dialog_title", "dialog_message", new AlertDialogSingleInterface() {
+		    @Override
+		    public void doTaskOnClick() {
+		        // TODO add code which want to execute on button click
+		    }
+		});
+		```
 
 ## Getting Help
 
