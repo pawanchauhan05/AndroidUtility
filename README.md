@@ -3,29 +3,29 @@
 Android Utility is combination of normal utility functions like described below in feature section. I decided to implement completely almost all features in order to make Android Utility easy to use for everyone and extensible as possible.
 
 ## Features
-	* Utility function for shared preference
-		* save and get boolean value
-		* save and get int value
-		* save and get String value
-		* save and get custom object
-		* clear perticular key data
-		* clear all shared preference
-	* Runtime Permission for marshmallow and above sdk
-	* Download audio, video, image file
-	* Show custom or default progress dialog
-	* Check app foreground state
-	* Check internet connectivity
-	* Read and write custom object from file
-	* Create directory (from path) and delete directory with files
-	* Show short or long length toast
-	* Show short or long length snackbar
-	* Alert Dialog
-		* show single button alert dialog
-		* show multi button alert dialog
-		* show date picker dialog
-		* show time picker dialog
-	* Hide keyboard panel
-	* Choose image from camera or gallery
+* Utility function for shared preference
+    * save and get boolean value
+	* save and get int value
+	* save and get String value
+	* save and get custom object
+	* clear perticular key data
+	* clear all shared preference
+* Runtime Permission for marshmallow and above sdk
+* Download audio, video, image file
+* Show custom or default progress dialog
+* Check app foreground state
+* Check internet connectivity
+* Read and write custom object from file
+* Create directory (from path) and delete directory with files
+* Show short or long length toast
+* Show short or long length snackbar
+* Alert Dialog
+	* show single button alert dialog
+	* show multi button alert dialog
+	* show date picker dialog
+	* show time picker dialog
+* Hide keyboard panel
+* Choose image from camera or gallery
 
 
 ## Usage
@@ -40,11 +40,14 @@ dependencies {
 ## How to use ?
 ### Shared Preference
 #### Save and get boolean value from shared perference
-	* Save boolean type value
-		Utils.savePreferenceData(getContext(), "BOOLEAN_KEY", true);
-
-	* Get boolean type value
-		Utils.readPreferenceData(getContext(), "BOOLEAN_KEY", false);
+* Save boolean type value
+```java
+Utils.savePreferenceData(getContext(), "BOOLEAN_KEY", true);
+```
+* Get boolean type value
+```java
+Utils.readPreferenceData(getContext(), "BOOLEAN_KEY", false);
+```
 
 #### Save and get int value from shared perference
 	* Save int type value
@@ -238,6 +241,7 @@ public class TestFragment extends Fragment implements RuntimePermissionInitializ
 }
 ```
 >**_"implement RuntimePermissionInitializerInterface, override onRequestPermissionsResult(), onActivityResult() method is compulsory."_**
+
 ## Getting Help
 
 To report a specific problem or feature request, [open a new issue on Github](https://github.com/pawanchauhan05/AndroidUtility/issues/new).
