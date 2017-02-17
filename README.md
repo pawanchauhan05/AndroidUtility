@@ -273,6 +273,38 @@ public class TestFragment extends Fragment implements RuntimePermissionInitializ
 ```
 >**_"implement RuntimePermissionInitializerInterface, override onRequestPermissionsResult(), onActivityResult() method is compulsory."_**
 
+## Release Notes
+### v0.0.2
+* Bug fixes
+* Show short or long length snackbar
+* Alert Dialog
+	* show single button alert dialog
+	* show multi button alert dialog
+	* show date picker dialog
+	* show time picker dialog
+* Hide keyboard panel
+* Choose image from camera or gallery
+
+### v0.0.1
+* Utility function for shared preference
+    * save and get boolean value
+	* save and get int value
+	* save and get String value
+	* save and get custom object
+	* clear particular key data
+	* clear all shared preference
+* Runtime Permission for marshmallow and above sdk
+* Download audio, video, image file
+* Show custom or default progress dialog
+* Check app foreground state
+* Check internet connectivity
+* Read and write custom object from file
+* Create directory (from path) and delete directory with files
+* Show short or long length toast
+
+## Contribution
+>**if you find it useful, fork the repository, improve it and request a pull.**
+
 ## Getting Help
 
 To report a specific problem or feature request, [open a new issue on Github](https://github.com/pawanchauhan05/AndroidUtility/issues/new).
