@@ -33,6 +33,11 @@ public class FileDBUtils<T> {
         this.directory = directory;
     }
 
+    /**
+     * this function is used to save object in file.
+     *
+     * @param object
+     */
     public void saveObject(T object) {
         Utils.createDirectory(context, directory);
         String writeData = new Gson().toJson(object);
@@ -45,6 +50,11 @@ public class FileDBUtils<T> {
         }
     }
 
+    /**
+     * this function is used to read object from file.
+     *
+     * @return
+     */
     public T readObject() {
         if (file.exists()) {
             try {

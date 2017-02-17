@@ -443,7 +443,7 @@ public class Utils {
     /**
      * this function is used for hide keyboard panel.
      *
-     * @param activity
+     * @param activity - activity instance
      */
     public static void hideKeyboard(Activity activity) {
         try {
