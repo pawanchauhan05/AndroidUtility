@@ -160,14 +160,45 @@ hasInternetAccess() method returns boolean value.
 ### Alert Dialog
 * Show Single Button Alert Dialog
 ```java
-Utils.showSingleButtonAlertDialog(this, "button_text","dialog_title","dialog_message", new AlertDialogSingleInterface() {
+Utils.showSingleButtonAlertDialog(this, "button_text", "dialog_title", "dialog_message", new AlertDialogSingleInterface() {
     @Override
     public void doTaskOnClick() {
 	// TODO add code which want to execute on button click
     }
 });
 ```
+* Show Multi Button Alert Dialog
+```java
+Utils.showMultiButtonAlertDialog(this, "positive_button_name", "negative_button_name", "dialog_title", "dialog_message", new AlertDialogInterface() {
+            @Override
+            public void positiveButtonPressed() {
+                // TODO add code which want to execute on click positive button
+            }
 
+            @Override
+            public void negativeButtonPressed() {
+                // TODO add code which want to execute on click negative button
+            }
+        });
+```
+* Show Date picker dialog
+```java
+Utils.showDatePicker(getSupportFragmentManager(), new DateInterface() {
+    @Override
+    public void setDate(Date date) {
+    	// TODO get date after select from date picker dialog   
+    }
+});
+```
+* Show Time picker dialog
+```java
+Utils.showTimePicker(getSupportFragmentManager(), new TimeInterface() {
+    @Override
+    public void setTime(int hour, int minute, String am_pm) {
+	// TODO get time after select from time picker dialog     
+    }
+});
+```
 ## Getting Help
 
 To report a specific problem or feature request, [open a new issue on Github](https://github.com/pawanchauhan05/AndroidUtility/issues/new).
