@@ -25,7 +25,7 @@ Android Utility is combination of normal utility functions like described below 
 		* show date picker dialog
 		* show time picker dialog
 	* Hide keyboard panel
-	* choose image from camera or gallery
+	* Choose image from camera or gallery
 
 
 ## Usage
@@ -199,6 +199,45 @@ Utils.showTimePicker(getSupportFragmentManager(), new TimeInterface() {
     }
 });
 ```
+* Hide keyboard panel
+```java
+Utils.hideKeyboard(getActivity());
+```
+* Choose image from camera or gallery
+```java
+public class TestFragment extends Fragment implements RuntimePermissionInitializerInterface {
+    private RunTimePermission permission;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(getRuntimePermission() != null)
+            getRuntimePermission().onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        AlertDialog.imageHelperInterface.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void setRuntimePermission(RunTimePermission runTimePermission) {
+        this.permission = runTimePermission;
+    }
+
+    @Override
+    public RunTimePermission getRuntimePermission() {
+        return permission;
+    }
+
+    @Override
+    public void setBitmap(Bitmap bitmap) {
+	// TODO get select image file in bitmap format
+    }
+}
+```
+>**_"implement RuntimePermissionInitializerInterface, override onRequestPermissionsResult(), onActivityResult() method is compulsory."_**
 ## Getting Help
 
 To report a specific problem or feature request, [open a new issue on Github](https://github.com/pawanchauhan05/AndroidUtility/issues/new).
