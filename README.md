@@ -3,21 +3,30 @@
 Android Utility is combination of normal utility functions like described below in feature section. I decided to implement completely almost all features in order to make Android Utility easy to use for everyone and extensible as possible.
 
 ## Features
-	* Utility function for shared preference
-		* save and get boolean value
-		* save and get int value
-		* save and get String value
-		* save and get custom object
-		* clear perticular key data
-		* clear all shared preference
-	* Runtime Permission for marshmallow and above sdk
-	* Download audio, video, image file
-	* Show custom or default progress dialog
-	* Check app foreground state
-	* Check internet connectivity
-	* Read and write custom object from file
-	* Create directory (from path) and delete directory with files
-	* Show short or long toast
+* Utility function for shared preference
+    * save and get boolean value
+	* save and get int value
+	* save and get String value
+	* save and get custom object
+	* clear particular key data
+	* clear all shared preference
+* Runtime Permission for marshmallow and above sdk
+* Download audio, video, image file
+* Show custom or default progress dialog
+* Check app foreground state
+* Check internet connectivity
+* Read and write custom object from file
+* Create directory (from path) and delete directory with files
+* Show short or long length toast
+* Show short or long length snackbar
+* Alert Dialog
+	* show single button alert dialog
+	* show multi button alert dialog
+	* show date picker dialog
+	* show time picker dialog
+* Hide keyboard panel
+* Choose image from camera or gallery
+
 
 ## Usage
 ### Steps
@@ -31,38 +40,54 @@ dependencies {
 ## How to use ?
 ### Shared Preference
 #### Save and get boolean value from shared perference
-	* Save boolean type value
-		Utils.savePreferenceData(getContext(), "BOOLEAN_KEY", true);
-
-	* Get boolean type value
-		Utils.readPreferenceData(getContext(), "BOOLEAN_KEY", false);
+* Save boolean type value
+```java
+Utils.savePreferenceData(getContext(), "BOOLEAN_KEY", true);
+```
+* Get boolean type value
+```java
+Utils.readPreferenceData(getContext(), "BOOLEAN_KEY", false);
+```
 
 #### Save and get int value from shared perference
-	* Save int type value
-		Utils.savePreferenceData(getContext(), "INT_KEY", 5);
-
-	* Get int type value
-		Utils.readPreferenceData(getContext(), "INT_KEY", 0);
+* Save int type value
+```java
+Utils.savePreferenceData(getContext(), "INT_KEY", 5);
+```
+* Get int type value
+```java
+Utils.readPreferenceData(getContext(), "INT_KEY", 0);
+```
 
 #### Save and get String value from shared perference
-	* Save String type value
-		Utils.savePreferenceData(getContext(), "STRING_KEY", "STRING_VALUE");
-
-	* Get String type value
-		Utils.readPreferenceData(getContext(), "STRING_KEY", "");
+* Save String type value
+```java
+Utils.savePreferenceData(getContext(), "STRING_KEY", "STRING_VALUE");
+```
+* Get String type value
+```java
+Utils.readPreferenceData(getContext(), "STRING_KEY", "");
+```
 
 #### Save and get custom object value from shared perference
-	* Save custom object value
-		Utils.savePreferenceData(getContext(), "CUSTOM_KEY", customObject);
+* Save custom object value
+```java
+Utils.savePreferenceData(getContext(), "CUSTOM_KEY", customObject);
+```
+* Get custom object value
+```java
+Utils.readPreferenceData(getContext(), "CUSTOM_KEY", customObject, CustomObject.class);
+```
 
-	* Get custom object value
-		Utils.readPreferenceData(getContext(), "CUSTOM_KEY", customObject, CustomObject.class);
-
-#### Clear perticular key data
-	Utils.removePreferenceData(getActivity(), "REMOVE_KEY");
+#### Clear particular key data
+```java
+Utils.removePreferenceData(getActivity(), "REMOVE_KEY");
+```
 
 #### clear all shared preference
-	Utils.clearPreferences(getActivity());
+```java
+Utils.clearPreferences(getActivity());
+```
 
 
 >**_"in Utils.readPreferenceData() method third perameter is default value"_**
@@ -87,26 +112,34 @@ public void onRequestPermissionsResult(int requestCode, @NonNull String[] permis
 >**_"To prevent application to crash you also have to add permission in application manifest file"_**
 
 ### Download audio, video, image file
-	* Download Audio file
-		Utils.downloadMusicFile("music_url", "music_file_name", getActivity());
-
-	* Download Video File
-		Utils.downloadVideoFile("video_url", "video_file_name", getActivity());
-
-	* Download Image File
-		Utils.downloadImageFile("image_url", "image_file_name", getActivity());
+* Download Audio file
+```java
+Utils.downloadMusicFile("music_url", "music_file_name", getActivity());
+```
+* Download Video File
+```java
+Utils.downloadVideoFile("video_url", "video_file_name", getActivity());
+```
+* Download Image File
+```java
+Utils.downloadImageFile("image_url", "image_file_name", getActivity());
+```
 
 ### Show or Hide custom or default progress dialog
-	* Show Custom Progress Dialog
-		ProgressDialog progressDialog = new ProgressDialog(getActivity());
-		Utils.showProgressBar(progressDialog);
-
-	* Show Default Progress Dialog
-		ProgressDialog progressDialog = new ProgressDialog(getActivity());
-		Utils.showProgressBar("progress_dialog_title", "progress_dialog_message", progressDialog);
-
-	* Hide Progress Dialog
-		Utils.hideProgressBar(progressDialog);
+* Show Custom Progress Dialog
+```java
+ProgressDialog progressDialog = new ProgressDialog(getActivity());
+Utils.showProgressBar(progressDialog);
+```
+* Show Default Progress Dialog
+```java
+ProgressDialog progressDialog = new ProgressDialog(getActivity());
+Utils.showProgressBar("progress_dialog_title", "progress_dialog_message", progressDialog);
+```
+* Hide Progress Dialog
+```java
+Utils.hideProgressBar(progressDialog);
+```
 
 >**_"use same progress dialog instance to hideProgressBar() that used for showProgressBar()"_**
 
@@ -125,27 +158,164 @@ hasInternetAccess() method returns boolean value.
 >**_"true = having internet access AND false = do not have internet access"_**
 
 ### Read and write custom object from file
-	* Write custom object to file
-		FileDBUtils<CustomObject> fileDBUtils = new FileDBUtils<>(getActivity(), "file_name", CustomObject.class, "/db/custom");
-		fileDBUtils.saveObject(customObjectInstance);
-
-	* Read custom object from file
-		FileDBUtils<CustomObject> fileDBUtils = new FileDBUtils<>(getActivity(), "file_name", CustomObject.class, "/db/custom");
-		fileDBUtils.readObject();
+* Write custom object to file
+```java
+FileDBUtils<CustomObject> fileDBUtils = new FileDBUtils<>(getActivity(), "file_name", CustomObject.class, "/db/custom");
+fileDBUtils.saveObject(customObjectInstance);
+```
+* Read custom object from file
+```java
+FileDBUtils<CustomObject> fileDBUtils = new FileDBUtils<>(getActivity(), "file_name", CustomObject.class, "/db/custom");
+fileDBUtils.readObject();
+```
 
 ### Create directory (from path) and delete directory with files
-	* Create directory form path
-		Utils.createDirectory(getActivity(), "top/main/sub");
+* Create directory form path
+```java
+Utils.createDirectory(getActivity(), "top/main/sub");
+```
+* Delete directory including files
+```java
+Utils.deleteDirectory(getActivity(), "top/main/sub");
+```
 
-	* Delete directory including files
-		Utils.deleteDirectory(getActivity(), "top/main/sub");
+### Show short or long length toast
+* Show Short Toast
+```java
+Utils.generateShortToast(getActivity(), "toast_message");
+```
+* Show Long Toast
+```java
+Utils.generateLongToast(getActivity(), "toast_message");
+```
+### Show short or long length snack bar
+* Show Short length Snack bar
+```java
+Utils.showShortSnackBar(getActivity(), "Snack bar message");
+```
+* Show Long length Snack bar
+```java
+Utils.showLongSnackBar(getActivity(), "Snack bar message");
+```
+### Alert Dialog
+* Show Single Button Alert Dialog
+```java
+Utils.showSingleButtonAlertDialog(this, "button_text", "dialog_title", "dialog_message", new AlertDialogSingleInterface() {
+    @Override
+    public void doTaskOnClick() {
+	    // TODO add code which want to execute on button click
+    }
+});
+```
+* Show Multi Button Alert Dialog
+```java
+Utils.showMultiButtonAlertDialog(this, "positive_button_name", "negative_button_name", "dialog_title", "dialog_message", new AlertDialogInterface() {
+            @Override
+            public void positiveButtonPressed() {
+                // TODO add code which want to execute on click positive button
+            }
 
-### Show short or long toast
-	* Show Short Toast
-		Utils.generateShortToast(getActivity(), "toast_message");
+            @Override
+            public void negativeButtonPressed() {
+                // TODO add code which want to execute on click negative button
+            }
+        });
+```
+* Show Date picker dialog
+```java
+Utils.showDatePicker(getSupportFragmentManager(), new DateInterface() {
+    @Override
+    public void setDate(Date date) {
+    	// TODO get date after select from date picker dialog   
+    }
+});
+```
+* Show Time picker dialog
+```java
+Utils.showTimePicker(getSupportFragmentManager(), new TimeInterface() {
+    @Override
+    public void setTime(int hour, int minute, String am_pm) {
+	    // TODO get time after select from time picker dialog     
+    }
+});
+```
+* Hide keyboard panel
+```java
+Utils.hideKeyboard(getActivity());
+```
+* Choose image from camera or gallery
+```java
+public class TestFragment extends Fragment implements RuntimePermissionInitializerInterface {
+    private RunTimePermission permission;
 
-	* Show Long Toast
-		Utils.generateLongToast(getActivity(), "toast_message");
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(getRuntimePermission() != null)
+            getRuntimePermission().onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        AlertDialog.imageHelperInterface.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void setRuntimePermission(RunTimePermission runTimePermission) {
+        this.permission = runTimePermission;
+    }
+
+    @Override
+    public RunTimePermission getRuntimePermission() {
+        return permission;
+    }
+
+    @Override
+    public void setBitmap(Bitmap bitmap) {
+	    // TODO get select image file in bitmap format
+    }
+}
+```
+>**_"implement RuntimePermissionInitializerInterface, override onRequestPermissionsResult(), onActivityResult() method is compulsory."_**
+
+## Release Notes
+### v0.0.2
+* Bug fixes
+* Show short or long length snackbar
+* Alert Dialog
+	* show single button alert dialog
+	* show multi button alert dialog
+	* show date picker dialog
+	* show time picker dialog
+* Hide keyboard panel
+* Choose image from camera or gallery
+
+### v0.0.1
+* Utility function for shared preference
+    * save and get boolean value
+	* save and get int value
+	* save and get String value
+	* save and get custom object
+	* clear particular key data
+	* clear all shared preference
+* Runtime Permission for marshmallow and above sdk
+* Download audio, video, image file
+* Show custom or default progress dialog
+* Check app foreground state
+* Check internet connectivity
+* Read and write custom object from file
+* Create directory (from path) and delete directory with files
+* Show short or long length toast
+
+## Contribution
+I welcome and encourage all pull requests. It usually will take me within 24-48 hours to respond to any issue or request. Here are some basic rules to follow to ensure timely addition of your request:
+  1. Match coding style (braces, spacing, etc.) This is best achieved using `CMD`+`Option`+`L` (Reformat code) on Mac (not sure for Windows) with Android Studio defaults.
+  2. If its a feature, bugfix, or anything please only change code to what you specify.
+  3. Please keep PR titles easy to read and descriptive of changes, this will make them easier to merge :)
+  4. Pull requests _must_ be made against `developer` branch. Any other branch (unless specified by the maintainers) will get rejected.
+  5. Check for existing [issues](https://github.com/pawanchauhan05/AndroidUtility/issues/new) first, before filing an issue.
+  6. Have fun!
 
 ## Getting Help
 

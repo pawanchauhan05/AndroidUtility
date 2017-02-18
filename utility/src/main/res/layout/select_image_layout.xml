@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="20sp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:id="@+id/textViewTitle"
+            android:text="Change Profile"
+            android:layout_width="0dp"
+            android:layout_weight="0.8"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:background="#d2dbdc"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_weight="0.5"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageViewChooseFromCamera"
+                android:layout_gravity="center"
+                android:src="@drawable/camera"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="5dp"/>
+
+            <TextView
+                android:textSize="16sp"
+                android:paddingRight="24dp"
+                android:paddingLeft="24dp"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:textAlignment="center"
+                android:text="Camera"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5sp"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="0.5"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageViewChooseFromGallery"
+                android:layout_gravity="center"
+                android:src="@drawable/gallery"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="5dp"/>
+
+            <TextView
+                android:textSize="16sp"
+                android:paddingRight="24dp"
+                android:paddingLeft="24dp"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:textAlignment="center"
+                android:text="Gallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5sp"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+

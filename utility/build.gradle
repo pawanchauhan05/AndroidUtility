@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/pawanchauhan05/AndroidUtility'
     gitUrl = 'https://github.com/pawanchauhan05/AndroidUtility.git'
 
-    libraryVersion = '0.0.1'
+    libraryVersion = '0.0.2-beta1'
 
     developerId = 'pawanchauhan05'
     developerName = 'Pawan Singh Chauhan'
@@ -52,7 +52,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.google.code.gson:gson:2.4'
-    compile 'com.android.support:support-v4:25.1.1'
+    compile 'com.android.support:design:25.1.1'
     testCompile 'junit:junit:4.12'
 }
 

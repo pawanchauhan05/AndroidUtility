@@ -1,22 +1,19 @@
-package com.androidutility;
+package com.androidutility.activity;
 
 import android.Manifest;
-import android.app.ProgressDialog;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
-import com.android.utility.FileDBUtils;
 import com.android.utility.RunTimePermission;
 import com.android.utility.RuntimePermissionInterface;
-import com.android.utility.Task;
 import com.android.utility.Utils;
-import com.androidutility.model.CustomObject;
+import com.androidutility.R;
+import com.androidutility.fragment.TestFragment;
+
 
 public class MainActivity extends AppCompatActivity {
-    private RunTimePermission permission;
+    public RunTimePermission permission;
     private String url = "http://www.maninblack.org/demos/WhereDoAllTheJunkiesComeFrom.mp3";
     private String musicFileName = "music";
 
@@ -24,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frameLayout, new TestFragment())
+                .commit();
     }
 
     public void checkPermission(View view) {
@@ -40,9 +41,4 @@ public class MainActivity extends AppCompatActivity {
         Utils.downloadMusicFile(url, musicFileName, this);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        permission.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
 }

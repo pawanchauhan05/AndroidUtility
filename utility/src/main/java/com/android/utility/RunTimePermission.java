@@ -317,6 +317,13 @@ public class RunTimePermission {
                 ActivityCompat.requestPermissions(activity,new String[]{permission},i);
     }
 
+    /**
+     * this function is used to check status permission is granted or not
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         for (int code: PERMISSION_ARRAY_REQUEST) {
             if(code == requestCode) {
@@ -329,6 +336,11 @@ public class RunTimePermission {
     }
 
 
+    /**
+     * this function is used to check runtime permission in marshmallow or above SDK
+     *
+     * @param permission - manifest permission
+     */
     public void runtimePermission(String permission) {
         if(!checkPermission(permission))
             requestPermission(permission);
