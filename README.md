@@ -34,7 +34,7 @@ Android Utility is combination of normal utility functions like described below 
 
 ```
 dependencies {
-  compile 'com.android.utility:Android-Utility:{latest_release}'
+  compile 'com.github.pawanchauhan05:utility:0.0.1'
 }
 ```
 ## How to use ?
@@ -101,6 +101,12 @@ RunTimePermission permission = new RunTimePermission(this, new RuntimePermission
             }
         });
 permission.runtimePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+@Override
+public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        permission.onRequestPermissionsResult(requestCode, permissions, grantResults);
+}
 ```
 
 >**_"To prevent application to crash you also have to add permission in application manifest file"_**
