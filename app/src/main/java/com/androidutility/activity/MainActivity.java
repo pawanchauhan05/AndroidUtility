@@ -1,26 +1,16 @@
 package com.androidutility.activity;
 
 import android.Manifest;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
-
-import com.android.utility.AlertDialog;
-import com.android.utility.FileDBUtils;
 import com.android.utility.RunTimePermission;
-import com.android.utility.RuntimePermissionInitializerInterface;
 import com.android.utility.RuntimePermissionInterface;
-import com.android.utility.Task;
 import com.android.utility.Utils;
 import com.androidutility.R;
 import com.androidutility.fragment.TestFragment;
-import com.androidutility.model.CustomObject;
+
 
 public class MainActivity extends AppCompatActivity {
     public RunTimePermission permission;
