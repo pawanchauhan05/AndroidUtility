@@ -124,7 +124,7 @@ public class Utils {
      * @param context - to prevent unconditionally errors use application context.
      * @param key - shared preference key (not null)
      * @param defaultValue - provide default value to prevent unconditionally result.
-     * @return
+     * @return - returns String value
      */
     public static String readPreferenceData(Context context, String key, String defaultValue) {
         if (context != null) {
@@ -140,7 +140,7 @@ public class Utils {
      * @param context - to prevent unconditionally errors use application context.
      * @param key - shared preference key (not null)
      * @param defaultValue - provide default value to prevent unconditionally result.
-     * @return
+     * @return - returns Boolean value
      */
     public static Boolean readPreferenceData(Context context, String key, boolean defaultValue) {
         if (context != null) {
@@ -156,7 +156,7 @@ public class Utils {
      * @param context - to prevent unconditionally errors use application context.
      * @param key - shared preference key (not null)
      * @param defaultValue - provide default value to prevent unconditionally result.
-     * @return
+     * @return - returns Int value
      */
     public static int readPreferenceData(Context context, String key, int defaultValue) {
         if (context != null) {
@@ -173,7 +173,7 @@ public class Utils {
      * @param key - shared preference key (not null)
      * @param defaultValue - provide default value to prevent unconditionally result.
      * @param clazz - provide .class which object want to get
-     * @return
+     * @return - returns stored Object
      */
     public static Object readPreferenceData(Context context, String key, String defaultValue, Class clazz) {
         String result = readPreferenceData(context, key, defaultValue);
@@ -270,8 +270,8 @@ public class Utils {
     /**
      * this function is used to delete directory with contents in app storage.
      *
-     * @param context
-     * @param directory
+     * @param context - application context
+     * @param directory - directory
      */
     public static void deleteDirectory(Context context, String directory) {
         File dir = new File(context.getFilesDir() + directory);
@@ -355,8 +355,8 @@ public class Utils {
      * this function is used to check application state i.e background or foreground.
      * it is used while application is already in foreground and you do not want to show notification etc.
      *
-     * @param context
-     * @return
+     * @param context - application context
+     * @return - returns boolean value
      */
     public static boolean hasAppInForeground(Context context) {
         try {
@@ -376,7 +376,7 @@ public class Utils {
      * @param buttonText - button name eg. ok, yes, no etc
      * @param title - alert dialog title
      * @param message - alert dialog message
-     * @param alertDialogSingleInterface
+     * @param alertDialogSingleInterface - alertDialogSingleInterface is used to set action on button
      */
     public static void showSingleButtonAlertDialog(Activity activity, String buttonText, String title, String message, AlertDialogSingleInterface alertDialogSingleInterface) {
         new AlertDialog().showSingleButtonAlertDialog(activity, buttonText, title, message, alertDialogSingleInterface);
@@ -390,7 +390,7 @@ public class Utils {
      * @param negativeButtonText - button name eg. no, cancel etc
      * @param title - alert dialog title
      * @param message - alert dialog message
-     * @param alertDialogInterface
+     * @param alertDialogInterface - alertDialogInterface is used to set action on +ve or -ve button
      */
     public static void showMultiButtonAlertDialog(Activity activity, String positiveButtonText, String negativeButtonText, String title, String message, AlertDialogInterface alertDialogInterface) {
         new AlertDialog().showMultiButtonAlertDialog(activity, positiveButtonText, negativeButtonText, title, message, alertDialogInterface);
@@ -399,8 +399,8 @@ public class Utils {
     /**
      * this function is used to show Time picker dialog.
      *
-     * @param fragmentManager
-     * @param timeInterface
+     * @param fragmentManager - fragment manager instance
+     * @param timeInterface - timeinterface used to set time after selection
      */
     public static void showTimePicker(FragmentManager fragmentManager, TimeInterface timeInterface) {
         AlertDialog.TimePickerFragment fragment = new AlertDialog.TimePickerFragment();
@@ -411,8 +411,8 @@ public class Utils {
     /**
      * this function is used to show Date picker dialog.
      *
-     * @param fragmentManager
-     * @param dateInterface
+     * @param fragmentManager - fragment manager instance
+     * @param dateInterface - dateinterface used to set date after selection
      */
     public static void showDatePicker(FragmentManager fragmentManager, DateInterface dateInterface) {
         AlertDialog.DatePickerFragment fragment = new AlertDialog.DatePickerFragment();
