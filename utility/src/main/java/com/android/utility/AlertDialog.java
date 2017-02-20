@@ -98,6 +98,13 @@ public class AlertDialog {
     }
     /** override onRequestPermissionsResult in activity or fragment(cross check override in both) */
 
+    /**
+     * this function is used to select picture from gallery or camera
+     *
+     * @param activity - activity instance
+     * @param fragment - fragment instance
+     * @param title - dialog title
+     */
     public void selectPicture(final Activity activity, final Fragment fragment, String title) {
         this.activity = activity;
         if(fragment != null)

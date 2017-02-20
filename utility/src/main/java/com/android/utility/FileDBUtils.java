@@ -36,7 +36,7 @@ public class FileDBUtils<T> {
     /**
      * this function is used to save object in file.
      *
-     * @param object
+     * @param object - object to be saved in file
      */
     public void saveObject(T object) {
         Utils.createDirectory(context, directory);
@@ -53,7 +53,7 @@ public class FileDBUtils<T> {
     /**
      * this function is used to read object from file.
      *
-     * @return
+     * @return - return saved object from file
      */
     public T readObject() {
         if (file.exists()) {

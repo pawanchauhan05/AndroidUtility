@@ -320,9 +320,9 @@ public class RunTimePermission {
     /**
      * this function is used to check status permission is granted or not
      *
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
+     * @param requestCode - request code
+     * @param permissions - permission
+     * @param grantResults - grantResults
      */
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         for (int code: PERMISSION_ARRAY_REQUEST) {
