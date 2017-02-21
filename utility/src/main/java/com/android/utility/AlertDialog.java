@@ -307,7 +307,12 @@ public class AlertDialog {
         Intent intent = new Intent("com.android.camera.action.CROP");
         Uri uri = Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), photoFileName));
         intent.setDataAndType(uri, "image/*");
-        activity.startActivityForResult(getCropIntent(intent), CAMERA_REQUEST);
+        if(activity instanceof RuntimePermissionInitializerInterface)
+            activity.startActivityForResult(getCropIntent(intent), CAMERA_REQUEST);
+        else if(fragment instanceof RuntimePermissionInitializerInterface)
+            fragment.startActivityForResult(getCropIntent(intent), CAMERA_REQUEST);
+
+
     }
 
     private static void selectedFromGallery(Intent data) {
@@ -315,7 +320,10 @@ public class AlertDialog {
             Intent intent = new Intent("com.android.camera.action.CROP");
             Uri selectedImage = data.getData();
             intent.setDataAndType(Uri.fromFile(new File(getPath(selectedImage, activity))), "image/*");
-            activity.startActivityForResult(getCropIntent(intent), CAMERA_REQUEST);
+            if(activity instanceof RuntimePermissionInitializerInterface)
+                activity.startActivityForResult(getCropIntent(intent), CAMERA_REQUEST);
+            else if(fragment instanceof RuntimePermissionInitializerInterface)
+                fragment.startActivityForResult(getCropIntent(intent), CAMERA_REQUEST);
         }
     }
 

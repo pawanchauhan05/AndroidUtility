@@ -34,7 +34,7 @@ Android Utility is combination of normal utility functions like described below 
 
 ```
 dependencies {
-  compile 'com.github.pawanchauhan05:utility:0.0.2-beta1'
+  compile 'com.github.pawanchauhan05:utility:0.0.2'
 }
 ```
 ## How to use ?
@@ -280,7 +280,7 @@ public class TestFragment extends Fragment implements RuntimePermissionInitializ
 >**_"implement RuntimePermissionInitializerInterface, override onRequestPermissionsResult(), onActivityResult() method is compulsory."_**
 
 ## Release Notes
-### v0.0.2-beta1
+### v0.0.2
 * Bug fixes
 * Show short or long length snackbar
 * Alert Dialog
