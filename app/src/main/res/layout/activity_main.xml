@@ -8,27 +8,25 @@
     tools:context="com.androidutility.activity.MainActivity">
 
     <com.android.utility.CircularImageView
+        android:visibility="gone"
         android:id="@+id/circularImageView"
         android:src="@drawable/pp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
-        android:visibility="gone"
         android:text="check permission"
         android:onClick="checkPermission"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:visibility="gone"
         android:text="download song"
         android:onClick="downloadSong"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <FrameLayout
-        android:visibility="gone"
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

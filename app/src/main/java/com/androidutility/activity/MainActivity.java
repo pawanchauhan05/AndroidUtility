@@ -1,6 +1,7 @@
 package com.androidutility.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.android.utility.CircularImageView;
+import com.android.utility.FBLogin;
+import com.android.utility.FBLoginInterface;
 import com.android.utility.RunTimePermission;
 import com.android.utility.RuntimePermissionInterface;
 import com.android.utility.Utils;
@@ -46,7 +49,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void downloadSong(View view) {
-        Utils.downloadMusicFile(url, musicFileName, this);
+        //Utils.downloadMusicFile(url, musicFileName, this);
+        Utils.facebookLogin(new FBLoginInterface() {
+            @Override
+            public void doTaskAfterLogin(Bundle facebookBundle) {
+                Log.e("Login", "ho gya");
+            }
+        }, this);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        FBLogin.onActivityResult(requestCode, resultCode, data);
+    }
 }

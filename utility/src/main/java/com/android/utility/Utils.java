@@ -465,4 +465,14 @@ public class Utils {
         new AlertDialog().selectPicture(activity, fragment, title);
     }
 
+    /**
+     * this function is used to login with facebook.
+     *
+     * @param fbLoginInterface - fbLoginInterface defines task which is performed after facebook login.
+     * @param activity - activity instance
+     */
+    public static void facebookLogin(FBLoginInterface fbLoginInterface, Activity activity) {
+        new FBLogin().fbLogin(fbLoginInterface, activity);
+    }
+
 }
