@@ -409,6 +409,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 }
 ```
 >**_"Add google-services.json at application level."_**
+
 ## Release Notes
 ### v0.0.3-beta1
 * Bug fixes
