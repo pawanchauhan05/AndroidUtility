@@ -16,6 +16,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -473,6 +474,24 @@ public class Utils {
      */
     public static void facebookLogin(FBLoginInterface fbLoginInterface, Activity activity) {
         new FBLogin().fbLogin(fbLoginInterface, activity);
+    }
+
+    /**
+     * this function is used to login with google.
+     *
+     * @param googleSignIn
+     */
+    public static void googleLogin(GoogleSignIn googleSignIn) {
+        googleSignIn.login();
+    }
+
+    /**
+     * this function is used to logout from google.
+     *
+     * @param googleSignIn
+     */
+    public static void googleLogout(GoogleSignIn googleSignIn) {
+        googleSignIn.logout();
     }
 
 }
