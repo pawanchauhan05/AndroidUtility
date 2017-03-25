@@ -459,11 +459,20 @@ public class Utils {
      * this function is used to show layout for select image from camera or gallery.
      *
      * @param activity - activity instance
+     * @param title - provide title for layout eg. select image, profile picture, choose from etc.
+     */
+    public static void selectImage(Activity activity, String title) {
+        new AlertDialog().selectPicture(activity, title);
+    }
+
+    /**
+     * this function is used to show layout for select image from camera or gallery.
+     *
      * @param fragment - fragment instance
      * @param title - provide title for layout eg. select image, profile picture, choose from etc.
      */
-    public static void selectImage(Activity activity, Fragment fragment, String title) {
-        new AlertDialog().selectPicture(activity, fragment, title);
+    public static void selectImage(Fragment fragment, String title) {
+        new AlertDialog().selectPicture(fragment, title);
     }
 
     /**

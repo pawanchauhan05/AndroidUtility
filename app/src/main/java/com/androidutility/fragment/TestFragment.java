@@ -44,7 +44,7 @@ public class TestFragment extends Fragment implements RuntimePermissionInitializ
         view.findViewById(R.id.buttonSelectImage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.selectImage(getActivity(), TestFragment.this, "Select Image");
+                Utils.selectImage(TestFragment.this, "Select Image");
             }
         });
         return view;
