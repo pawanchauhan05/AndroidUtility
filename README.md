@@ -411,8 +411,9 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 >**_"Add google-services.json at application level."_**
 
 ## Release Notes
-### v0.0.3-beta1
+### v0.0.3
 * Bug fixes
+* Marshmallow permission support added for fragment also
 * Endless scroll for list view
 * Endless scroll for recycler view
 * Circular image view
