@@ -16,6 +16,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -458,11 +459,48 @@ public class Utils {
      * this function is used to show layout for select image from camera or gallery.
      *
      * @param activity - activity instance
+     * @param title - provide title for layout eg. select image, profile picture, choose from etc.
+     */
+    public static void selectImage(Activity activity, String title) {
+        new AlertDialog().selectPicture(activity, title);
+    }
+
+    /**
+     * this function is used to show layout for select image from camera or gallery.
+     *
      * @param fragment - fragment instance
      * @param title - provide title for layout eg. select image, profile picture, choose from etc.
      */
-    public static void selectImage(Activity activity, Fragment fragment, String title) {
-        new AlertDialog().selectPicture(activity, fragment, title);
+    public static void selectImage(Fragment fragment, String title) {
+        new AlertDialog().selectPicture(fragment, title);
+    }
+
+    /**
+     * this function is used to login with facebook.
+     *
+     * @param fbLoginInterface - fbLoginInterface defines task which is performed after facebook login.
+     * @param activity - activity instance
+     */
+    public static void facebookLogin(FBLoginInterface fbLoginInterface, Activity activity) {
+        new FBLogin().fbLogin(fbLoginInterface, activity);
+    }
+
+    /**
+     * this function is used to login with google.
+     *
+     * @param googleSignIn
+     */
+    public static void googleLogin(GoogleSignIn googleSignIn) {
+        googleSignIn.login();
+    }
+
+    /**
+     * this function is used to logout from google.
+     *
+     * @param googleSignIn
+     */
+    public static void googleLogout(GoogleSignIn googleSignIn) {
+        googleSignIn.logout();
     }
 
 }

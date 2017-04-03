@@ -105,10 +105,8 @@ public class AlertDialog {
      * @param fragment - fragment instance
      * @param title - dialog title
      */
-    public void selectPicture(final Activity activity, final Fragment fragment, String title) {
+    public void selectPicture(final Activity activity, String title) {
         this.activity = activity;
-        if(fragment != null)
-            this.fragment = fragment;
         final Dialog dialog = new Dialog(activity);
         //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -129,7 +127,7 @@ public class AlertDialog {
                     }
 
                     public void initRuntimePermission(Activity act) {
-                        if(act instanceof RuntimePermissionInitializerInterface || fragment instanceof RuntimePermissionInitializerInterface) {
+                        if(act instanceof RuntimePermissionInitializerInterface) {
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             photoFileName = "file" + System.currentTimeMillis() + ".png";
                             File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), photoFileName);
@@ -139,9 +137,7 @@ public class AlertDialog {
                             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
                             intent.putExtra("return-data", true);
                             if (intent.resolveActivity(activity.getPackageManager()) != null) {
-                                if(fragment instanceof RuntimePermissionInitializerInterface)
-                                    fragment.startActivityForResult(intent, CAMERA_CROP_REQUEST);
-                                else if(act instanceof RuntimePermissionInitializerInterface)
+                                if(act instanceof RuntimePermissionInitializerInterface)
                                     act.startActivityForResult(intent, CAMERA_CROP_REQUEST);
                             }
                         }
@@ -149,8 +145,6 @@ public class AlertDialog {
                 });
                 if(activity instanceof RuntimePermissionInitializerInterface)
                     ((RuntimePermissionInitializerInterface) activity).setRuntimePermission(permission);
-                else if(fragment instanceof RuntimePermissionInitializerInterface)
-                    ((RuntimePermissionInitializerInterface) fragment).setRuntimePermission(permission);
                 permission.runtimePermission(RuntimePermissions.CAMERA);
 
             }
@@ -168,12 +162,10 @@ public class AlertDialog {
                     }
 
                     public void initRuntimePermission(Activity act) {
-                        if(act instanceof RuntimePermissionInitializerInterface || fragment instanceof RuntimePermissionInitializerInterface) {
+                        if(act instanceof RuntimePermissionInitializerInterface) {
                             Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             if (galleryIntent.resolveActivity(activity.getPackageManager()) != null) {
-                                if(fragment instanceof RuntimePermissionInitializerInterface)
-                                    fragment.startActivityForResult(galleryIntent, GALLERY_REQUEST);
-                                else if(activity instanceof RuntimePermissionInitializerInterface)
+                                if(activity instanceof RuntimePermissionInitializerInterface)
                                     activity.startActivityForResult(galleryIntent, GALLERY_REQUEST);
                             }
                         }
@@ -182,7 +174,78 @@ public class AlertDialog {
 
                 if(activity instanceof RuntimePermissionInitializerInterface)
                     ((RuntimePermissionInitializerInterface) activity).setRuntimePermission(permission);
-                else if(fragment instanceof RuntimePermissionInitializerInterface)
+                permission.runtimePermission(RuntimePermissions.WRITE_EXTERNAL_STORAGE);
+            }
+        });
+    }
+
+    public void selectPicture(final Fragment fragment, String title) {
+        this.fragment = fragment;
+        final Dialog dialog = new Dialog(fragment.getActivity());
+        //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.select_image_layout);
+        ((TextView) dialog.findViewById(R.id.textViewTitle)).setText(title);
+        ImageView dialogChooseFormCamera = (ImageView) dialog.findViewById(R.id.imageViewChooseFromCamera);
+        ImageView dialogChooseFormGallery = (ImageView) dialog.findViewById(R.id.imageViewChooseFromGallery);
+        dialog.show();
+
+        dialogChooseFormCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RunTimePermission permission = new RunTimePermission(fragment, new RuntimePermissionInterface() {
+                    @Override
+                    public void doTaskAfterPermission() {
+                        dialog.cancel();
+                        initRuntimePermission(fragment);
+                    }
+
+                    public void initRuntimePermission(Fragment fragmentInstance) {
+                        if(fragmentInstance instanceof RuntimePermissionInitializerInterface) {
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            photoFileName = "file" + System.currentTimeMillis() + ".png";
+                            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), photoFileName);
+                            if(!file.exists()){
+                                file.mkdirs();
+                            }
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+                            intent.putExtra("return-data", true);
+                            if (intent.resolveActivity(fragmentInstance.getActivity().getPackageManager()) != null) {
+                                if(fragment instanceof RuntimePermissionInitializerInterface)
+                                    fragment.startActivityForResult(intent, CAMERA_CROP_REQUEST);
+                            }
+                        }
+                    }
+                });
+                if(fragment instanceof RuntimePermissionInitializerInterface)
+                    ((RuntimePermissionInitializerInterface) fragment).setRuntimePermission(permission);
+                permission.runtimePermission(RuntimePermissions.CAMERA);
+            }
+
+        });
+
+        dialogChooseFormGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RunTimePermission permission = new RunTimePermission(fragment, new RuntimePermissionInterface() {
+                    @Override
+                    public void doTaskAfterPermission() {
+                        dialog.cancel();
+                        initRuntimePermission(fragment);
+                    }
+
+                    public void initRuntimePermission(Fragment fragmentInstance) {
+                        if(fragmentInstance instanceof RuntimePermissionInitializerInterface) {
+                            Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            if (galleryIntent.resolveActivity(fragmentInstance.getActivity().getPackageManager()) != null) {
+                                if(fragment instanceof RuntimePermissionInitializerInterface)
+                                    fragment.startActivityForResult(galleryIntent, GALLERY_REQUEST);
+                            }
+                        }
+                    }
+                });
+
+                if(fragment instanceof RuntimePermissionInitializerInterface)
                     ((RuntimePermissionInitializerInterface) fragment).setRuntimePermission(permission);
                 permission.runtimePermission(RuntimePermissions.WRITE_EXTERNAL_STORAGE);
             }

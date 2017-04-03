@@ -2,8 +2,10 @@ package com.android.utility;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -293,6 +295,7 @@ public class RunTimePermission {
 
 
     private Activity activity;
+    private Fragment fragment;
     private RuntimePermissionInterface runtimePermissionInterface;
 
     public RunTimePermission(Activity activity, RuntimePermissionInterface runtimePermissionInterface) {
@@ -300,11 +303,17 @@ public class RunTimePermission {
         this.runtimePermissionInterface = runtimePermissionInterface;
     }
 
+    public RunTimePermission(Fragment fragment, RuntimePermissionInterface runtimePermissionInterface) {
+        this.fragment = fragment;
+        this.runtimePermissionInterface = runtimePermissionInterface;
+    }
+
     private boolean checkPermission(String permission) {
+        Context context = activity != null ? activity : fragment.getActivity();
         int result = -1;
         for (String PERMISSION : RuntimePermissions.PERMISSION_ARRAY) {
             if(permission.equals(PERMISSION)) {
-                result = ContextCompat.checkSelfPermission(activity, PERMISSION);
+                result = ContextCompat.checkSelfPermission(context, PERMISSION);
                 return result == PackageManager.PERMISSION_GRANTED ? true : false;
             }
         }
@@ -314,7 +323,10 @@ public class RunTimePermission {
     private void requestPermission(String permission) {
         for (int i = 0; i < RuntimePermissions.PERMISSION_ARRAY.length; i++)
             if(permission.equals(RuntimePermissions.PERMISSION_ARRAY[i]))
-                ActivityCompat.requestPermissions(activity,new String[]{permission},i);
+                if(activity != null)
+                    ActivityCompat.requestPermissions(activity,new String[]{permission},i);
+                else if(fragment != null)
+                    fragment.requestPermissions(new String[]{permission},i);
     }
 
     /**

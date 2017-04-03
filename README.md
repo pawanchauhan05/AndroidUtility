@@ -26,7 +26,11 @@ Android Utility is combination of normal utility functions like described below 
 	* show time picker dialog
 * Hide keyboard panel
 * Choose image from camera or gallery
-
+* Endless Scrolling for List view
+* Endless Scrolling for Recycler view
+* Circular Image View
+* Login with Facebook
+* Login with Google
 
 ## Usage
 ### Steps
@@ -34,7 +38,7 @@ Android Utility is combination of normal utility functions like described below 
 
 ```
 dependencies {
-  compile 'com.github.pawanchauhan05:utility:0.0.2'
+  compile 'com.github.pawanchauhan05:utility:0.0.3-beta1'
 }
 ```
 ## How to use ?
@@ -239,11 +243,11 @@ Utils.showTimePicker(getSupportFragmentManager(), new TimeInterface() {
     }
 });
 ```
-* Hide keyboard panel
+### Hide keyboard panel
 ```java
 Utils.hideKeyboard(getActivity());
 ```
-* Choose image from camera or gallery
+### Choose image from camera or gallery
 ```java
 public class TestFragment extends Fragment implements RuntimePermissionInitializerInterface {
     private RunTimePermission permission;
@@ -279,7 +283,143 @@ public class TestFragment extends Fragment implements RuntimePermissionInitializ
 ```
 >**_"implement RuntimePermissionInitializerInterface, override onRequestPermissionsResult(), onActivityResult() method is compulsory."_**
 
+### Endless Scroll for List View
+```java
+listViewInstance.setOnScrollListener(new ListViewEndlessScrollListener() {
+            @Override
+            public boolean onLoadMore(int page, int totalItemsCount) {
+                /*
+                TODO
+                1. show progress dialog
+                2. Load data from api
+                3. hide progress dialog
+                */
+                return false; // ONLY if more data is actually being loaded; false otherwise.
+            }
+        });
+```
+### Endless Scroll for Recycler View
+```java
+LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+recyclerViewInstance.setLayoutManager(linearLayoutManager);
+recyclerViewInstance.addOnScrollListener(new RecyclerViewEndlessScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+            /*
+            TODO
+            1. Show progress Dialog
+            2. load data from api
+            3. Hide progress Dialog
+            */
+            }
+        });
+```
+### Circular image view
+```xml
+<com.android.utility.CircularImageView
+    android:id="@+id/circularImageView"
+    android:src="@drawable/drawable_name"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+```
+```java
+// set image using java
+Bitmap icon = BitmapFactory.decodeResource(getResources(),R.drawable.drawable_name);
+circularImageViewInstance.setImageBitmap(icon);
+```
+### Login with Facebook
+#### Follow steps described below
+* AndroidManifest.xml
+```xml
+<application>
+    <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+</application>
+```
+* strings.xml
+```xml
+<resources>
+    <string name="facebook_app_id">add_facebook_app_id</string>
+</resources>
+```
+* Java code
+```java
+Utils.facebookLogin(new FBLoginInterface() {
+            @Override
+            public void doTaskAfterLogin(Bundle facebookBundle) {
+                // code to be executed after FB login
+            }
+        }, getActivity());
+        
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    FBLogin.onActivityResult(requestCode, resultCode, data);
+}
+```
+### Login with Google
+#### Follow steps described below
+* build.gradle (project level gradle file)
+```xml
+buildscript {
+    dependencies {
+        classpath 'com.google.gms:google-services:3.0.0'
+    }
+}
+```
+* build.gradle (app level gradle file)
+```xml
+apply plugin: 'com.android.application'
+dependencies {
+    compile 'com.google.android.gms:play-services-auth:10.2.0'
+}
+apply plugin: 'com.google.gms.google-services'
+```
+* java file
+```java
+private GoogleSignIn googleSignIn;
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    googleSignIn = new GoogleSignIn(this, new GoogleLoginInterface() {
+        @Override
+        public void doTaskAfterLogin(Bundle googleBundle) {
+            // code to be executed after Google login
+        }
+
+        @Override
+        public void doTaskAfterSignOut() {
+            // code to be executed after Logout from Google
+        }
+    });
+}
+
+private void googleLogin() {
+    Utils.googleLogin(googleSignIn);
+}
+
+private void googleLogout() {
+    Utils.googleLogout(googleSignIn);
+}
+
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    googleSignIn.onActivityResult(requestCode, resultCode, data);
+}
+```
+>**_"Add google-services.json at application level."_**
+
 ## Release Notes
+### v0.0.3
+* Bug fixes
+* Marshmallow permission support added for fragment also
+* Endless scroll for list view
+* Endless scroll for recycler view
+* Circular image view
+* Login with Facebook
+* Login with Google
+
 ### v0.0.2
 * Bug fixes
 * Show short or long length snackbar

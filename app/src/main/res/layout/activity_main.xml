@@ -7,6 +7,13 @@
     android:orientation="vertical"
     tools:context="com.androidutility.activity.MainActivity">
 
+    <com.android.utility.CircularImageView
+        android:visibility="gone"
+        android:id="@+id/circularImageView"
+        android:src="@drawable/pp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <Button
         android:text="check permission"
         android:onClick="checkPermission"
