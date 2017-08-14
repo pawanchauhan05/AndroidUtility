@@ -38,7 +38,7 @@ Android Utility is combination of normal utility functions like described below 
 
 ```
 dependencies {
-  compile 'com.github.pawanchauhan05:utility:0.0.3-beta1'
+  compile 'com.github.pawanchauhan05:utility:0.0.3'
 }
 ```
 ## How to use ?
