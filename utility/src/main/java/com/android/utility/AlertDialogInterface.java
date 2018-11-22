@@ -5,6 +5,6 @@ package com.android.utility;
  */
 
 public interface AlertDialogInterface {
-    public void positiveButtonPressed();
-    public void negativeButtonPressed();
+    void positiveButtonPressed();
+    void negativeButtonPressed();
 }
